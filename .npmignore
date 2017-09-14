@@ -7,6 +7,9 @@
 /src
 /tsconfig.json
 
+# Sandbox
+sandbox
+
 # Template config files
 /template/assets/package.json
 /template/assets/tsconfig.json

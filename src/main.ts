@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /**
  * Reclass doc generator
  *
