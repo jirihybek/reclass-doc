@@ -80,7 +80,8 @@ parser.addArgument( [ '--verbose' ], {
 
 parser.addArgument( ["reclass_dir"], {
 	help: 'Reclass directory',
-	defaultValue: "."
+	defaultValue: ".",
+	nargs: "*"
 });
 
 //Parse args
@@ -103,7 +104,8 @@ try {
 	try {
 
 		let config: IConfig = <any>{};
-		let configFilename = args.config_file || ( (args.reclass_dir || ".") + "/reclass-doc.json" );
+		let reclassDir = ( args.reclass_dir && args.reclass_dir.length > 0 ? args.reclass_dir[0] : "." );
+		let configFilename = args.config_file || ( reclassDir + "/reclass-doc.json" );
 
 		//Load config file
 		if(fs.existsSync( configFilename )){
@@ -131,7 +133,7 @@ try {
 		if(args.watch) config.watch = true;
 		if(args.server) config.startServer = true;
 		if(args.port) config.serverPort = parseInt(args.port);
-		if(args.reclass_dir) config.reclassDir = args.reclass_dir;
+		if(args.reclass_dir) config.reclassDir = reclassDir;
 
 		//Init application
 		logger.debug("Initializing ReclassDoc...");

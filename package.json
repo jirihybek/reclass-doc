@@ -1,6 +1,6 @@
 {
   "name": "reclass-doc",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Reclass model documentation generator.",
   "main": "dist/index.js",
   "private": false,

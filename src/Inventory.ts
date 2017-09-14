@@ -261,7 +261,7 @@ export class Inventory {
 		index.fingerprint = crypto.createHash('md5').update(hashStr.join(",")).digest('hex');
 
 		if(index.classes["init"])
-			hashStr.push("init:" + index.classes["init"].class.fingerprint);
+			hashStr.push("init:" + (index.classes["init"].class ? index.classes["init"].class.fingerprint : "no-class") );
 
 		if(index.docs["README"])
 			hashStr.push("readme:" + index.docs["README"].fingerprint);
