@@ -1,0 +1,59 @@
+classes:
+- service.mysql.support
+applications:
+- mysql
+parameters:
+  mysql:
+    cluster:
+      enabled: true
+      name: openstack
+      role: ${_param:mysql_cluster_role}
+      bind:
+        address: ${_param:cluster_local_address}
+        port: 4567
+      members:
+      - host: ${_param:cluster_node01_address}
+        port: 4567
+      - host: ${_param:cluster_node02_address}
+        port: 4567
+      - host: ${_param:cluster_node03_address}
+        port: 4567
+      gcache_size: 4000
+    server:
+      enabled: true
+      force_encoding: utf8
+      version: '5.5'
+      admin:
+        user: root
+        password: ${_param:mysql_admin_password}
+      bind:
+        address: ${_param:cluster_local_address}
+        port: 3306
+      users:
+      - name: haproxy
+        host: localhost
+      - name: haproxy
+        host: '%'
+      - name: haproxy
+        host: ${_param:cluster_local_address}
+  haproxy:
+    proxy:
+      listen:
+        mysql_cluster:
+          type: mysql
+          binds:
+          - address: ${_param:cluster_vip_address}
+            port: 3306
+          servers:
+          - name: ctl01
+            host: ${_param:cluster_node01_address}
+            port: 3306
+            params: check
+          - name: ctl02
+            host: ${_param:cluster_node02_address}
+            port: 3306
+            params: backup check
+          - name: ctl03
+            host: ${_param:cluster_node03_address}
+            port: 3306
+            params: backup check

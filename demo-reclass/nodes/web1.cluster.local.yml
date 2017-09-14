@@ -1,0 +1,6 @@
+classes:
+- cluster.sample_app.web.single
+parameters:
+  _param:
+    net_single_address: 192.168.1.11
+    net_single_hostname: web1

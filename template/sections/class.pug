@@ -1,0 +1,160 @@
+mixin classDep(classes, isRoot)
+	each classLink in classes
+		li
+			span.item.toggle-details
+				if isRoot && classLink.dependencies.length > 0
+					button.toggle
+						i.mdi.mdi-magnify
+						| Show tree
+
+				if classLink.link
+					a(href=classLink.link) #{classLink.className}
+				else
+					span #{classLink.className}
+
+				if(classLink.flags.error)
+					i.mdi.mdi-alert.error
+
+			if classLink.dependencies.length > 0
+				ul.class-list
+					+classDep(classLink.dependencies, false)
+
+mixin classProp(prop, isRoot)
+	li(id=prop.id, class="prop" + ( prop.ownProp ? ' own-prop' : '' ), data-fulltext=prop.fulltext)
+		if !isRoot
+			div(class="item" + ( prop.ref ? ' with-reference' : '' ))
+				if prop.comment.length > 0 && prop.comment[0] != ''
+					div.comment
+						each comment in prop.comment
+							if comment != ''
+								div.entry #{comment}
+
+				div.label.toggle-details
+					span.name #{prop.name}:
+
+					if prop.type == 'value'
+						span.value #{prop.value}
+					else if prop.type == 'ref'
+						a.value(href=prop.value) #{prop.value}
+					else
+						button.collapse
+							i.mdi.mdi-menu-down.opened
+							i.mdi.mdi-menu-right.closed
+						span.value &nbsp;
+
+					button.toggle
+						i.mdi.mdi-magnify
+
+				div.details
+					h4 Sources
+					ul.sources
+						each source in prop.sources
+							li
+								span.merge-type #{source.mergeType}
+
+								span.label
+									if source.classLink
+										a.class-link.name(href=source.classLink) #{source.className}
+									else
+										span.class-link.name #{source.className}
+
+									span.value #{source.value}
+
+								if source.sourceLink
+									a.source-link(href=source.sourceLink) View source
+
+					if prop.ref
+						h4 References
+						ul.refs
+							each ref in prop.ref
+								li: a(href=ref.link) #{ref.name}
+
+		if prop.type == 'map' || prop.type == 'sequence'
+			ul.prop-list
+				each val in prop.value
+					+classProp(val, false)
+
+if !skipHeading
+	h2
+		.mdi.mdi-cube-outline
+		span
+			| Class 
+			strong #{section.title}
+
+		div.controls
+			label
+				input.toggle-inherited-props(type="checkbox", id="inherited-props-" + sectionIndex)
+				span Show inherited
+
+			if section.sourceLink
+				p.source-link
+					a(href=section.sourceLink) Source code
+
+if section.errors.length > 0
+	include _errors.pug
+
+if section.class
+	header
+		if section.class.dependencies.length > 0
+			div
+				h3
+					i.mdi.mdi-arrow-down-bold-hexagon-outline
+					span Dependencies
+
+				ul.class-list
+					+classDep(section.class.dependencies, true)
+
+		if section.class.dependents.length > 0
+			div
+				h3
+					i.mdi.mdi-arrow-up-bold-hexagon-outline
+					span Dependents
+
+				ul.class-list
+					+classDep(section.class.dependents, false)
+
+	if section.class.applications.length > 0
+		h3
+			i.mdi.mdi-package
+			span Applications
+
+		ul.app-list.prop-list
+			each app in section.class.applications
+				li(class=( app.ownProp ? ' own-prop' : '' ))
+					div.item
+						if app.comment.length > 0
+							div.comment
+								each comment in app.comment
+									div.entry #{comment}
+
+						div.label.toggle-details
+							span.name #{app.name}
+							
+							button.toggle
+								i.mdi.mdi-magnify
+
+						div.details
+							h4 Sources
+							ul.sources
+								each source in app.sources
+									li
+										span.label
+											if source.classLink
+												a.class-name.name(href=source.classLink) #{source.className}
+											else
+												span.class-name.name #{source.className}
+
+										if source.sourceLink
+											a.source-link(href=source.sourceLink) View source
+
+	if section.class.props && Object.keys(section.class.props.value).length > 0
+		h3
+			i.mdi.mdi-file-tree
+			span Properties
+
+			div.controls
+				input.search-box(type="text", placeholder="Search...", size="35", data-search-container="#prop-container-" + sectionIndex, data-search-item=":scope > ul.prop-list > li", id="search-box-" + sectionIndex)
+
+		div(id="prop-container-" + sectionIndex)
+			ul.prop-list.root
+				+classProp(section.class.props, true)

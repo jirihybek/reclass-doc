@@ -1,0 +1,215 @@
+/**
+ * Reclass doc generator
+ *
+ * @author Jiri Hybek <jiri@hybek.cz>
+ * @license Apache-2.0 (c) 2017 Jiri Hybek
+ */
+
+/*
+ * CONTENT STYLES
+ */
+#page article > section .rtc {
+	line-height: 1.7em;
+
+	h1, h2, h3, h4, h5 {
+		font-weight: 400;
+		line-height: 1.1;
+		color: #444444;
+		margin-bottom: 20px;
+		padding-top: 20px;
+		border-bottom: 0px none;
+	}
+
+	h1 {
+		clear: both;
+		font-weight: 600;
+	}
+
+	h1 {
+		font-size: 32px;
+	}
+
+	h2 {
+		font-size: 28px;	
+	}
+
+	h3 {
+		font-size: 23px;
+	}
+
+	h4 {
+		font-size: 20px;
+	}
+
+	h5 {
+		font-size: 17px;
+	}
+
+	h3, h4, h5 {
+		border-bottom: 1px solid #dddddd;
+		padding-bottom: 8px;
+	}
+
+	> h1:first-child,
+	> h2:first-child {
+		margin-top: 0;
+		padding-top: 0px;
+	}
+
+	p, ol, ul, pre, table {
+		margin-bottom: 20px;
+	}
+
+	*:last-child {
+		margin-bottom: 0px;
+	}
+
+	p > *:last-child {
+		margin-bottom: 0px;
+	}
+
+	/*
+	 * Tables 
+	 */
+	table {
+		border: 1px solid #dedede;
+		border-collapse: collapse;
+		width: 100%;
+	}
+
+	table th,
+	table td {
+		border: 1px solid #dedede;
+		padding: 6px 10px;
+	}
+
+	table th {
+		background: #eeeeee;
+		font-size: 13px;
+		text-align: left;
+	}
+
+	table tbody > tr:nth-child(odd) td {
+		background: #ffffff;
+	}
+
+	table tbody > tr:nth-child(even) td {
+		background: #f8f8f8;
+	}
+
+	/*
+	 * Lists
+	 */
+	ul, ol {
+		padding-left: 26px;
+	}
+
+	ul li,
+	ol li {
+		line-height: 1.5;
+		margin-bottom: 8px;
+	}
+
+	ul > li:last-child,
+	ol > li:last-child {
+		margin-bottom: 0px;
+	}
+
+	/* PRE */
+	code {
+		background: transparent;
+		background: #f9f9f9;
+		border: 1px solid #dddddd;
+		padding: 2px 3px;
+		border-radius: 2px;
+	}
+
+	pre > code {
+		display: block;
+		font-size: 14px;
+		line-height: 1.6;
+		padding: 8px 12px;
+	}
+
+	/* IMAGES */
+	img {
+		max-width: 100%;
+		margin-bottom: 20px;
+	}
+
+	/*
+	* Messages
+	*/
+	.message {
+		position: relative;
+		padding: 14px 14px 14px 48px;
+		border-left: 6px solid #999999;
+		background: #f3f3f3;
+		font-size: 14px;
+	}
+
+	.message > *:last-child {
+		margin-bottom: 0px;
+	}
+
+	.message i.mdi {
+		position: absolute;
+		left: 14px;
+		top: 14px;
+		font-size: 24px;
+	}
+
+	.message .title strong {
+		font-weight: 300;
+		font-size: 18px;
+	}
+
+	.message .title {
+		margin-bottom: 8px;
+	}
+
+	/* INFO */
+	.message.info {
+		border-color: #1E88E5;
+		background: #E3F2FD;
+	}
+
+	.message.info i.mdi,
+	.message.info .title {
+		color: #1E88E5;
+	}
+
+	/* WARN */
+	.message.warn {
+		border-color: #FB8C00;
+		background: #FFF3E0;
+	}
+
+	.message.warn i.mdi,
+	.message.warn .title {
+		color: #FB8C00;
+	}
+
+	/* ALERT */
+	.message.alert {
+		border-color: #E53935;
+		background: #FFEBEE;
+	}
+
+	.message.alert i.mdi,
+	.message.alert .title {
+		color: #E53935;
+	}
+
+	/* SUCCESS */
+	.message.success {
+		border-color: #7CB342;
+		background: #F1F8E9;
+	}
+
+	.message.success i.mdi,
+	.message.success .title {
+		color: #7CB342;
+	}
+
+}

@@ -1,0 +1,68 @@
+mixin navTree(items)
+	ul.nav-items
+		each item in items
+			li(class='nav-item search-item' + ( item.items ? ' parent opened' : '' ) + ( page && page.id == item.id ? ' current' : '' ), data-fulltext=item.fulltext)
+				a(href=item.link)
+
+					if item.type == 'directory'
+						i.mdi.mdi-folder
+					else if item.type == 'class'
+						i.mdi.mdi-cube-outline
+					else if item.type == 'document'
+						i.mdi.mdi-file-document
+					else
+						i.mdi.mdi-file
+
+					span.label #{item.label}
+
+					if item.flags.error
+						i.mdi.mdi-alert.error
+
+					if(item.items)
+						button.item-toggle
+							i.mdi.mdi-chevron-up.closed
+							i.mdi.mdi-chevron-down.opened
+
+				if(item.items)
+					+navTree(item.items)
+
+doctype html
+html
+	head
+		title #{title} - #{siteTitle}
+		link(rel="stylesheet", href="{{base}}/assets/mdi/css/materialdesignicons.min.css", type="text/css")
+		link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700&amp;subset=latin-ext")
+		link(rel="stylesheet", href="{{base}}/assets/main.css", type="text/css")
+		script(type="text/javascript", src="{{base}}/assets/bundle.js")
+	body
+		aside#navigation
+			h1.logo
+				if siteLogo
+					img.logo(src=siteLogo, alt=siteTitle)
+
+				span.title #{siteTitle}
+
+			div.search
+				input.search-box.grow#menu-search(type="text", placeholder="Search...", size="35", data-search-container="#primary-menu", data-search-item=":scope > ul.nav-items > li.nav-item", data-search-session="true")
+
+			nav.menu.search-active#primary-menu
+				ul.nav-items
+					li(class=( page.id == 'overview' ? 'current' : '' )): a(href="{{base}}")
+						i.mdi.mdi-book-open-variant
+						span.label Overview
+
+				h2 Nodes
+				+navTree(navTree.nodes.items)
+
+				h2 Classes
+				+navTree(navTree.classes.items)
+
+			script(type="text/javascript").
+				__bindSearch( document.getElementById('menu-search') );
+
+		#page
+			block page
+
+		if _watchChanges
+			script(type="text/javascript").
+				__watchChanges();

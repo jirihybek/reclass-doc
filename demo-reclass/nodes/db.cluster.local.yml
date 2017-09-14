@@ -1,0 +1,6 @@
+classes:
+- cluster.sample_app.db.single
+parameters:
+  _param:
+    net_single_address: 192.168.1.10
+    net_single_hostname: db

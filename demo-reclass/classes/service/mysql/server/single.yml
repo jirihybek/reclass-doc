@@ -1,0 +1,17 @@
+classes:
+- service.mysql.support
+applications:
+- mysql
+parameters:
+  mysql:
+    server:
+      enabled: true
+      version: '5.5'
+      force_encoding: utf8
+      admin:
+        user: ${_param:mysql_admin_user}
+        password: ${_param:mysql_admin_password}
+      bind:
+        address: 0.0.0.0
+        port: 3306
+        protocol: tcp

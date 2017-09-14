@@ -1,0 +1,32 @@
+{
+  "name": "reclass-doc-template",
+  "version": "1.0.0",
+  "description": "Reclass-doc template assets",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "tsc": "tsc",
+    "tsc:w": "tsc -w",
+    "build-css": "node-sass scss  -o dist",
+    "watch-css": "nodemon -e scss -x \"npm run build-css\"",
+    "bundle": "webpack",
+    "bundle:w": "webpack --watch",
+    "predeploy": "npm run bundle",
+    "build": "npm run bundle; npm run build-css",
+    "build:w": "concurrent \"npm run bundle:w\" \"npm run watch-css\""
+  },
+  "author": "Jiri Hybek <jiri@hybek.cz>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "concurrently": "^2.2.0",
+    "node-sass": "^3.8.0",
+    "nodemon": "^1.10.0",
+    "source-map-loader": "^0.1.5",
+    "ts-loader": "^0.8.2",
+    "json-loader": "^0.5.4",
+    "typescript": "^1.8.10",
+    "webpack": "^1.13.1",
+    "es6-promise": "^3.2.1",
+    "es6-shim": "^0.35.1"
+  }
+}

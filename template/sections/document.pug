@@ -1,0 +1,19 @@
+//-if !skipHeading
+	h2
+		.mdi.mdi-file-document
+		span #{section.title}
+
+		div.controls
+			if section.sourceLink
+				p.source-link
+					a(href=section.sourceLink) Source code
+
+if section.errors && section.errors.length > 0
+	include _errors.pug
+
+div.contents.rtc
+	!=section.contents
+
+if section.sourceLink
+	p.section-source-link
+		a(href=section.sourceLink) Source code

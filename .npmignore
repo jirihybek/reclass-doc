@@ -1,0 +1,16 @@
+# Built demo documentation
+/demo-reclass
+/screenshots
+/screenshots.jpg
+
+# TypeScript sources
+/src
+/tsconfig.json
+
+# Template config files
+/template/assets/package.json
+/template/assets/tsconfig.json
+/template/assets/webpack.config.js
+/template/assets/src
+/template/assets/scss
+/template/assets/node_modules

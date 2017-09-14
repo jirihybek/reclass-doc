@@ -1,0 +1,12 @@
+if !skipHeading
+	h2
+		.mdi.mdi-package
+		span Child Classes  
+
+ul.class-list
+	each item in section.classes
+		li: a(href=item.link)
+			span.label #{item.label}
+
+			if item.flags.error
+				i.mdi.mdi-alert.error

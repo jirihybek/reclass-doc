@@ -1,0 +1,16 @@
+h3
+	.mdi.mdi-alert
+	span Errors
+
+ul.errors
+	each error in section.errors
+		li
+			//-
+				if error.message
+					p: strong #{error}
+
+					if error.stack
+						pre.stack-trace=String(error.stack)
+
+				else
+			| #{error}

@@ -1,0 +1,13 @@
+parameters:
+  linux:
+    _support:
+      collectd:
+        enabled: true
+      heka:
+        enabled: true
+      sensu:
+        enabled: true
+      sphinx:
+        enabled: true
+      grafana:
+        enabled: true

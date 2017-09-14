@@ -1,0 +1,29 @@
+classes:
+- service.mysql.support
+applications:
+- mysql
+parameters:
+  mysql:
+    server:
+      enabled: true
+      version: '5.5'
+      force_encoding: utf8
+      replication:
+        role: slave
+        master: ${_param:mysql_replication_master}
+        master_address: ${_param:mysql_replication_master_address}
+        user: ${_param:mysql_replication_user}
+        password: ${_param:mysql_replication_password}
+      server_id: 2
+      ssl:
+        enabled: true
+        authority: ${_param:mysql_ssl_authority}
+        certificate: ${_param:mysql_ssl_certificate}
+        client_certificate: ${_param:mysql_ssl_client_certificate}
+      admin:
+        user: ${_param:mysql_admin_user}
+        password: ${_param:mysql_admin_password}
+      bind:
+        address: 0.0.0.0
+        port: 3306
+        protocol: tcp

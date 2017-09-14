@@ -1,0 +1,35 @@
+classes:
+# Common Linux setup for all nodes
+- system.linux.system.single
+
+parameters:
+  # Paramaters to be interpolated
+  _param:
+
+    # MySQL Configuration
+    mysql_admin_user: admin
+    mysql_admin_password: admin
+
+    # Network
+    net_gateway: 192.168.1.1
+    cluster_domain: local.cluster
+
+  # Common linux settings
+  linux:
+    system:
+      name: ${_param:net_single_hostname}
+      domain: ${_param:cluster_domain}
+
+    # Network settings
+    network:
+      interface:
+        ens3:
+          enabled: true
+          type: eth
+          proto: static
+          gateway: ${_param:net_gateway}
+          address: ${_param:net_single_address}
+          netmask: 255.255.255.0
+          name_servers:
+          - 8.8.8.8
+          - 8.8.4.4

@@ -1,0 +1,27 @@
+extends layout.pug
+
+block page
+	article
+		header
+			ul.crumbs
+				each crumb, i in page.crumbs
+					li
+						a(href=crumb.link) #{crumb.label}
+						span.sep &nbsp;\
+
+				li
+					span #{page.label}
+
+		each section, sectionIndex in page.sections
+			section(class='type-' + section.type)
+				if section.type == 'class-list'
+					include sections/classList.pug
+
+				if section.type == 'document'
+					include sections/document.pug
+
+				if section.type == 'class'
+					include sections/class.pug
+
+				if section.type == 'source'
+					include sections/source.pug

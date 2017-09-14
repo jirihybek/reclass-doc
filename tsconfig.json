@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist/",
+        "noImplicitAny": false,
+        "module": "commonjs",
+        "target": "es5",
+        "typeRoots": [ "node_modules/@types" ]
+    },
+    "exclude": [
+    	"__tests__",
+    	"node_modules",
+    	"dist",
+        "template"
+    ]
+}

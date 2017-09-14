@@ -1,0 +1,13 @@
+if !skipHeading
+	h2
+		.mdi.mdi-code-tags
+		span
+			| Source 
+			strong #{section.title}
+
+if section.errors && section.errors.length > 0
+	include _errors.pug
+
+if section.contents
+	div.contents
+		pre!=section.contents

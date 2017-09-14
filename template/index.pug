@@ -1,0 +1,29 @@
+extends layout.pug
+
+block page
+	article.overview
+		each section, sectionIndex in page.sections
+			section(class='type-' + section.type)
+				- var skipHeading = true
+
+				if sectionIndex == 'nodes'
+					h2
+						.mdi.mdi-server-network
+						span Nodes
+
+				if sectionIndex == 'classes'
+					h2
+						.mdi.mdi-cube-outline
+						span Classes
+
+				if section.type == 'class-list'
+					include sections/classList.pug
+
+				if section.type == 'document'
+					include sections/document.pug
+
+				if section.type == 'class'
+					include sections/class.pug
+
+				if section.type == 'source'
+					include sections/source.pug
