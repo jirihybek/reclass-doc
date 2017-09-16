@@ -26,11 +26,11 @@ Reclass documentation generator.
 ## Installation
 
 1. Install [Node.js](https://nodejs.org/en/download/) with NPM
-2. Run `npm install reclass-doc`
+2. Run `npm install -g reclass-doc`
 
 ## Usage
 
-```bash
+```
 usage: reclass-doc [-h] [-v] [--output OUTPUT_DIR] [--media-dir MEDIA_DIR]
                    [--node-dir NODE_DIR] [--class-dir CLASS_DIR]
                    [--template TEMPLATE_DIR] [--config CONFIG_FILE] [-w] [-s]
@@ -145,7 +145,7 @@ Following configuration options can be set in configuration file.
 }
 ```
 
-## Custom template
+## Custom Template
 
 You can create your own template and specify path to it using `--template` flag or `templateDir` config property.
 

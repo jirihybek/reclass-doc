@@ -5,7 +5,7 @@ This project demonstrates sample web-server stack meta-data using [salt-formulas
 ## How to Build this Reclass Doc
 
 1. Install [Node.js](https://nodejs.org/en/download/) with NPM
-2. Run `npm install reclass-doc`
+2. Run `npm install -g reclass-doc`
 3. Run `reclass-doc` from reclass directory.
 
 ## Project Structure

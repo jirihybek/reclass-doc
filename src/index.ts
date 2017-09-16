@@ -178,8 +178,12 @@ export class ReclassDoc extends EventEmitter {
 
 				this.watch(config.reclassDir + config.nodeDir);
 				this.watch(config.reclassDir + config.classDir);
-				this.watch(config.reclassDir + "/README.md");
-				this.watch(config.reclassDir + "/readme.md");
+
+				if(fs.existsSync(config.reclassDir + "/README.md"))
+					this.watch(config.reclassDir + "/README.md");
+				
+				if(fs.existsSync(config.reclassDir + "/readme.md"))
+					this.watch(config.reclassDir + "/readme.md");
 
 			}
 

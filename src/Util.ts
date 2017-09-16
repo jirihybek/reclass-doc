@@ -56,6 +56,75 @@ export function clone(obj, exclude: Array<string> = null) {
 };
 
 /**
+ * Deeply compares two objects
+ *
+ * @param a First object
+ * @param b Second object
+ */
+export function deepEqual(a: { [K: string]: any; [K: number]: any }, b?: { [K: string]: any; [K: number]: any }, excludeProps?: Array<string>){
+
+    if(!b) return false;
+
+    for(let i in a){
+
+        if(excludeProps && excludeProps.indexOf(i) > 0)
+            continue;
+
+        if(a[i] === undefined) return false;
+
+        if(a[i] instanceof Object){
+
+            if(! (b[i] instanceof Object))
+                return false;
+
+            let r = deepEqual(a[i], b[i]);
+
+            if(!r) return false;
+
+        } else {
+
+            if(a[i] !== b[i])
+                return false;
+
+        }
+
+    }
+
+    return true;
+
+}
+
+/**
+ * Returns if array deeply contains target object
+ *
+ * @param arr Array to traverse
+ * @param target Target object to check existence
+ */
+export function deepContains(arr: Array< { [K: string]: any; [K: number]: any } >, target: any, excludeProps?: Array<string>){
+
+    if(target instanceof Object){
+
+        for(let i = 0; i < arr.length; i++){
+
+            if(!(arr[i] instanceof Object))
+                if(arr[i] === target) return true;
+
+            if(deepEqual(arr[i], target, excludeProps))
+                return true;
+
+        }
+
+        return false;
+
+    } else {
+
+        return arr.indexOf(target) >= 0 ? true : false;
+
+    }
+
+}
+
+/**
  * Merges objects
  */
 export function merge(...objs){

@@ -9,7 +9,7 @@ import fs = require('fs');
 import crypto = require('crypto');
 
 import {IToken, YamlTokenizer, TOKEN_TYPE} from './YamlTokenizer';
-import {clone, CLASS_TYPE} from './Util';
+import {clone, CLASS_TYPE, deepContains} from './Util';
 
 export enum MERGE_TYPE {
 	ORIGIN,
@@ -145,10 +145,11 @@ export class Resolver {
 			if(source.comment.length > 0){
 
 				for(let c in source.comment)
-					if(source.comment[c].length > 0)
+					if(source.comment[c].length > 0 && !deepContains(target.comment, source.comment[c]))
 						target.comment.push(source.comment[c]);
 
-				//target.comment = target.comment.concat(source.comment);
+				target.comment = target.comment.concat(source.comment);
+
 			}
 
 		}
@@ -173,7 +174,8 @@ export class Resolver {
 			lastSource.mergeType = MERGE_TYPE.MERGED;
 
 			for(let i = 0; i < source.value.length; i++)
-				target.value.push( clone(source.value[i]) );
+				if( !deepContains( target.value, source.value[i], [ "sources", "comment" ] ) )
+					target.value.push( clone(source.value[i]) );
 
 		//REPLACE
 		} else {

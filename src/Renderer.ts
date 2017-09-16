@@ -690,7 +690,9 @@ export class Renderer {
 				};
 
 				prop.sources.unshift(source);
-				prop.comment.unshift(source.comment);
+
+				if(prop.comment.indexOf(source.comment) < 0)
+					prop.comment.unshift(source.comment);
 
 				if(i === param.sources.length - 1){
 
@@ -699,8 +701,11 @@ export class Renderer {
 
 				}
 
-				fulltext.push( source.value );
-				fulltext.push( source.comment );
+				if(fulltext.indexOf(source.value) < 0)
+					fulltext.push( source.value );
+
+				if(fulltext.indexOf( source.comment ) < 0)
+					fulltext.push( source.comment );
 
 			}
 
@@ -1091,7 +1096,7 @@ export class Renderer {
 
 		if(!fs.existsSync(outputDir)){
 			this.logger.info("Creating directory '" + outputDir + "'...");
-			fs.mkdir(outputDir);
+			fs.mkdirSync(outputDir);
 		}
 
 		//Update crumbs
